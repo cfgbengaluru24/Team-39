@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import './Resource.css';
 
 const Resource = () => {
   const [manufacturingData, setManufacturingData] = useState([]);
   const [progressUpdate, setProgressUpdate] = useState({});
 
-
-
   useEffect(() => {
-    // Fetch manufacturing data from the backend
     const fetchManufacturingData = async () => {
       try {
         const res = await fetch('http://localhost:8000/user/resource', {
@@ -27,15 +25,15 @@ const Resource = () => {
   }, []);
 
   const handleProgressChange = (e, id) => {
+    const value = parseInt(e.target.value, 10);
     setProgressUpdate({
       ...progressUpdate,
-      [id]: e.target.value,
+      [id]: isNaN(value) ? 0 : value,
     });
   };
 
   const handleUpdate = async (id) => {
     try {
-        console.log()
       const res = await fetch('http://localhost:8000/user/manufacture-update', {
         method: 'PUT',
         headers: {
@@ -48,7 +46,6 @@ const Resource = () => {
       });
       const data = await res.json();
       if (data.message === "Progress updated successfully") {
-        // Fetch updated data
         const res = await fetch('http://localhost:8000/user/resource', {
           method: 'GET',
           headers: {
@@ -66,23 +63,26 @@ const Resource = () => {
   };
 
   return (
-    <div>
-      <h1>Manufacturing Resources</h1>
+    <div className="resource-container">
+      <h1 className="title">Manufacturing Resources</h1>
       {manufacturingData.length > 0 ? (
         manufacturingData.map((item) => (
-          <div key={item._id}>
-            <p>Machine: {item.machine}</p>
-            <p>Worker: {item.worker}</p>
-            <p>Progress: {item.progress}%</p>
-            <p>Location: {item.location}</p>
+          <div className="resource-card" key={item._id}>
+            <p className="resource-item">Machine: {item.machine}</p>
+            <p className="resource-item">Worker: {item.worker}</p>
+            <p className="resource-item">Progress: {item.progress}%</p>
+            <p className="resource-item">Location: {item.location}</p>
             <input
+              className="progress-input"
               type="number"
               value={progressUpdate[item._id] || item.progress}
               onChange={(e) => handleProgressChange(e, item._id)}
               min="0"
               max="100"
             />
-            <button onClick={() => handleUpdate(item._id)}>Update Progress</button>
+            <button className="update-button" onClick={() => handleUpdate(item._id)}>
+              Update Progress
+            </button>
           </div>
         ))
       ) : (

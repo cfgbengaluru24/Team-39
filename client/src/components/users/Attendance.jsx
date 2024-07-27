@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../components/createUser.css';
 
@@ -18,7 +18,7 @@ const Attendance = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/data');
+        const response = await axios.get('http://localhost:5000//data');
         setMachine(response.data.machine);
         setWorker(response.data.workers)
       } catch (error) {
@@ -52,6 +52,10 @@ const Attendance = () => {
       }
     });
   };
+
+  const saveForm = ()=>{
+    
+  }
 
 
   return (

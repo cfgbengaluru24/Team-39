@@ -384,28 +384,57 @@ app.post('/user/attendance',authenicate,restrict(['user']), async (req, res) => 
 })
 
 app.put('/user/manufacture-update', async (req, res) => {
+    // try {
+    //     const { manufactureId, progress } = req.body;
+
+    //     console.log("dsjj",manufactureId,progress)
+    //     // Validate inputs
+    //     if (!mongoose.Types.ObjectId.isValid(manufactureId)) {
+    //         return res.status(400).json({ message: "Invalid manufacture ID" });
+    //     }
+    //     if (typeof progress !== 'number' || progress < 0 || progress > 100) {
+    //         return res.status(400).json({ message: "Invalid progress value" });
+    //     }
+
+    //     // Find the manufacture document by ID and update the progress field
+    //     const manufacture = await manufactureModel.findByIdAndUpdate(manufactureId, { progress }, { new: true });
+
+    //     if (!manufacture) {
+    //         return res.status(404).json({ message: "Manufacture document not found" });
+    //     }
+
+    //     res.status(200).json({ message: "Progress updated successfully", manufacture });
+    // } catch (error) {
+    //     res.status(500).json({ message: error.message });
+    // }
     try {
         const { manufactureId, progress } = req.body;
-
+    
         // Validate inputs
         if (!mongoose.Types.ObjectId.isValid(manufactureId)) {
-            return res.status(400).json({ message: "Invalid manufacture ID" });
+          return res.status(400).json({ message: "Invalid manufacture ID" });
         }
-        if (typeof progress !== 'number' || progress < 0 || progress > 100) {
-            return res.status(400).json({ message: "Invalid progress value" });
+    
+        const progressNumber = parseInt(progress, 10);
+        if (isNaN(progressNumber) || progressNumber < 0 || progressNumber > 100) {
+          return res.status(400).json({ message: "Invalid progress value" });
         }
-
+    
         // Find the manufacture document by ID and update the progress field
-        const manufacture = await manufactureModel.findByIdAndUpdate(manufactureId, { progress }, { new: true });
-
+        const manufacture = await manufactureModel.findByIdAndUpdate(
+          manufactureId, 
+          { progress: progressNumber }, 
+          { new: true }
+        );
+    
         if (!manufacture) {
-            return res.status(404).json({ message: "Manufacture document not found" });
+          return res.status(404).json({ message: "Manufacture document not found" });
         }
-
+    
         res.status(200).json({ message: "Progress updated successfully", manufacture });
-    } catch (error) {
+      } catch (error) {
         res.status(500).json({ message: error.message });
-    }
+      }
 });
 
 
