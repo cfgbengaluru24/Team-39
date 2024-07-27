@@ -13,6 +13,7 @@ import machineryModel from './models/machinery-model.js';
 import attendanceModel from './models/attendance-model.js';
 import adminModel from './models/admin-model.js';
 import { authenicate, restrict } from './auth/verifyToken.js';
+import manufactureModel from './models/manufacture-model.js';
 
 
 
@@ -27,8 +28,8 @@ const app = express();
 
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    // credentials:true
+    origin:'*',
+   
 }))
 
 app.use(express.json({
@@ -221,9 +222,11 @@ app.post('/admin/takeorder',authenicate,restrict(['admin']), async (req, res) =>
     try {
         let { name, orderType, quantity, customization, tentative, cost } = req.body;
 
-        let createdorder = await orderModel.create({
+        let createdorder = new orderModel({
             name, tentative, orderType, quantity, customization, cost
         });
+
+        await createdorder.save()
         res.send("Order Created Succesfully");
 
 
@@ -265,6 +268,7 @@ app.post('/user/createworker',authenicate,restrict(['user']), async (req, res) =
         res.send(error.message);
     }
 })
+
 app.post('/user/sitedetails',authenicate,restrict(['user']), async (req, res) => {
     try {
         let { name, latitude, longitude, progress, status } = req.body;
@@ -279,6 +283,7 @@ app.post('/user/sitedetails',authenicate,restrict(['user']), async (req, res) =>
         res.send(error.message);
     }
 })
+
 app.get('/user/sitedetails',authenicate,restrict(['user']), async (req, res) => {
     try {
 
@@ -290,6 +295,7 @@ app.get('/user/sitedetails',authenicate,restrict(['user']), async (req, res) => 
         res.send(error.message);
     }
 })
+
 app.post('/user/createmachinery',authenicate,restrict(['user']), async (req, res) => {
     try {
         let { name, quantity, type } = req.body;
@@ -310,15 +316,18 @@ app.post('/user/createmachinery',authenicate,restrict(['user']), async (req, res
         res.send(error.message);
     }
 })
+
 app.get('/user/resource',authenicate,restrict(['user']), async (req, res) => {
     const orders = await orderModel.find({});
     req.json(orders);
 })
+
 app.get('/user/attendance', async (req, res) => {
     const machines = await machineryModel.find({});
     const workers = await workerModel.find({});
     res.json({ machines, workers });
 })
+
 app.post('/user/attendance',authenicate,restrict(['user']), async (req, res) => {
     try {
         let { machineArray, workerArray } = req.body;
@@ -336,6 +345,32 @@ app.post('/user/attendance',authenicate,restrict(['user']), async (req, res) => 
         res.send(error.message);
     }
 })
+
+app.put('/user/manufacture-update', authenicate, restrict(['user']), async (req, res) => {
+    try {
+        const { manufactureId, progress } = req.body;
+
+        // Validate inputs
+        if (!mongoose.Types.ObjectId.isValid(manufactureId)) {
+            return res.status(400).json({ message: "Invalid manufacture ID" });
+        }
+        if (typeof progress !== 'number' || progress < 0 || progress > 100) {
+            return res.status(400).json({ message: "Invalid progress value" });
+        }
+
+        // Find the manufacture document by ID and update the progress field
+        const manufacture = await manufactureModel.findByIdAndUpdate(manufactureId, { progress }, { new: true });
+
+        if (!manufacture) {
+            return res.status(404).json({ message: "Manufacture document not found" });
+        }
+
+        res.status(200).json({ message: "Progress updated successfully", manufacture });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 app.listen(PORT, () => {
     connectDB();

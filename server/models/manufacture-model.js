@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 
 const manufactureSchema = mongoose.Schema({
-    machine: String,
-    labour: String,
+    machine: Number,
+    worker: Number,
     progress: Number,
-    orderID: { type: mongoose.Schema.Types.ObjectId }
+    orderID: { type: mongoose.Schema.Types.ObjectId,ref: 'order' },
+    location:String
 });
 
 export default mongoose.model('manufacture', manufactureSchema);
