@@ -271,10 +271,10 @@ app.post('/user/createworker',authenicate,restrict(['user']), async (req, res) =
 
 app.post('/user/sitedetails',authenicate,restrict(['user']), async (req, res) => {
     try {
-        let { name, latitude, longitude, progress, status } = req.body;
+        let { name, latitude, longitude} = req.body;
 
         let createdsite = await siteModel.create({
-            name, latitude, longitude, progress, status
+            name, latitude, longitude, progress:0, status:"NOT Started"
         });
         res.send("site Created Succesfully");
 
@@ -283,6 +283,35 @@ app.post('/user/sitedetails',authenicate,restrict(['user']), async (req, res) =>
         res.send(error.message);
     }
 })
+
+app.put('/user/site-update', authenicate, restrict(['user']), async (req, res) => {
+    try {
+        const { siteId, status, progress } = req.body;
+
+        // Validate inputs
+        if (!mongoose.Types.ObjectId.isValid(siteId)) {
+            return res.status(400).json({ message: "Invalid site ID" });
+        }
+        if (typeof progress !== 'number' || progress < 0 || progress > 100) {
+            return res.status(400).json({ message: "Invalid progress value" });
+        }
+
+        // Find the site document by ID and update the status and progress fields
+        const updatedSite = await siteModel.findByIdAndUpdate(
+            siteId,
+            { status, progress },
+            { new: true }
+        );
+
+        if (!updatedSite) {
+            return res.status(404).json({ message: "Site document not found" });
+        }
+
+        res.status(200).json({ message: "Site updated successfully", site: updatedSite });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 app.get('/user/sitedetails',authenicate,restrict(['user']), async (req, res) => {
     try {
