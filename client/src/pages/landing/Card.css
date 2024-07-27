@@ -1,0 +1,53 @@
+/* Card.css */
+/* .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    margin: 0 15px;
+  } */
+  
+  .card-container {
+    display: flex;
+    justify-content: center; /* Center the cards horizontally */
+    flex-wrap: wrap; /* Allow the cards to wrap to the next line */
+    gap: 20px; /* Space between cards */
+    margin: 20px; /* Margin around the card container */
+    padding: 20px; /* Padding inside the card container */
+    position: relative; /* To position relative to the image */
+    z-index: 1; /* Ensure cards are above the image */
+    top: 100vh; /* Push the card container below the image */
+  }
+
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    flex: 1 1 calc(25% - 20px); /* Adjusting for gap */
+    max-width: calc(25% - 20px); /* Adjusting for gap */
+    box-sizing: border-box;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .card-content {
+    padding: 16px;
+  }
+  
+  .card-title {
+    font-size: 1.5em;
+    margin: 0;
+  }
+  
+  .card-text {
+    color: #555;
+  }

@@ -1,6 +1,29 @@
-/* src/pages/contact/ContactUs.css */
-.contact-us {
-    text-align: center;
-    padding: 20px;
-  }
-  
+.contact-container {
+  padding: 20px;
+  margin: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.contact-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.contact-container a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.contact-container a:hover {
+  text-decoration: underline;
+}

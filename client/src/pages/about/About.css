@@ -1,6 +1,22 @@
-/* src/pages/about/AboutUs.css */
-.about-us {
-    text-align: center;
-    padding: 20px;
-  }
+.about-container {
+  padding: 20px;
+  margin: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.about-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
   

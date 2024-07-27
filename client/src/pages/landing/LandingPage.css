@@ -6,17 +6,30 @@
   
   .landing-header {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    padding: 10px;
+    background: #fff;
+    z-index: 1001;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid #ddd; 
   }
   
-  .logo {
-    width: 100px;
-    height: auto;
+  .Logo {
+    position: relative; 
+    /* top: 0; */
+    left: 0;
+    width: vw; 
+    height: 50vh; 
+    object-fit: cover; 
+    opacity: 0.9; 
+    /* margin: 10px; */
   }
   
   .landing-navbar {
+    /* margin-top: 100px; */
     background-color: #333;
     padding: 10px;
   }
@@ -40,6 +53,10 @@
   
   .landing-navbar a:hover {
     text-decoration: underline;
+  }
+
+  .image {
+    margin-top: 100px;
   }
   
   .card-container {
@@ -67,4 +84,101 @@
   .card p {
     margin-bottom: 20px;
   }
+
+.fullscreen-image {
+    position: relative; 
+    /* top: 0; */
+    left: 0;
+    width: 100vw; 
+    height: 100vh; 
+    object-fit: cover; 
+    opacity: 0.9; 
+    margin: 10px;
+  } 
   
+  .landing-container {
+    text-align: center;
+    /* padding: 20px; */
+  }
+  
+  .landing-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-bottom: 30px; */
+  }
+  
+  .logo {
+    width: 100px;
+    height: auto;
+  }
+  
+  .landing-navbar {
+    background-color: #333;
+    /* padding: 10px; */
+    position: sticky;
+    top: 0;
+    text-shadow: black;
+    z-index: 1000;
+    width: 100%;
+  }
+  
+  .landing-navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .landing-navbar li {
+    display: inline;
+  }
+  
+  .landing-navbar a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .landing-navbar a:hover {
+    text-decoration: underline;
+  }
+  
+   .fullscreen-image {
+    width: 100%; 
+    height: 100%; 
+    margin: 20px 0; 
+    border-radius: 8px; 
+  }
+  
+  .card-container {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: center;
+     gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h2 {
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    margin-bottom: 20px;
+  }
+  
+  
+
+   
+   
