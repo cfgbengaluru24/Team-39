@@ -1,19 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const ownerSchema = mongoose.Schema({
-    fullname: {
+const adminSchema = mongoose.Schema({
+    name: {
         type: String,
         minLength: 3,
         trim: true
     },
     email: String,
     password: String,
-    products: {
-        type: Array,
-        default: []
-    },
-    picture: String,
-    gstin: String
+    
 });
 
-module.exports = mongoose.model('owner', ownerSchema);
+export default mongoose.model('admin', adminSchema);
