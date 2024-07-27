@@ -1,0 +1,72 @@
+/* Login.css */
+
+body {
+    background-color: #F0E5D8; /* Light background color for the page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .login-card {
+    background-color: #FFFFFF; /* White background for the login card */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 800px; /* Set a wider max width for the login card */
+    margin: 0 auto; /* Center the card horizontally */
+  }
+  
+  .login-title {
+    font-size: 24px;
+    color: #75CFB8; /* Title color matching your palette */
+    margin-bottom: 20px;
+  }
+  
+  .mb-4 {
+    margin-bottom: 16px;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333; /* Dark text color for labels */
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #BBDFC8; /* Border color matching your palette */
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .submit-button {
+    width: 100%; /* Make the button the same width as the input fields */
+    background-color: #e3ab63; /* Button color matching your palette */
+    color: #FFFFFF; /* White text color for the button */
+    border: none;
+    padding: 10px; /* Adjust padding to match the input fields */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center; /* Center the text within the button */
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #a67122; /* Slightly darker shade on hover */
+  }
+  
