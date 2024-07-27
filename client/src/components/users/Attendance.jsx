@@ -9,6 +9,8 @@ const Attendance = () => {
 
   const [machine, setMachine] = useState([]);
   const [worker, setWorker] = useState([]);
+  const [machineOut, setMachineOut] = useState([]);
+  const [workerOut, setWorkerOut] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = (e) => {
@@ -29,8 +31,20 @@ const Attendance = () => {
     fetchData();
   }, []);
 
-  const handleCheckboxClick = (item) => {
-    setCheckedItems(prevState => {
+  const handleCheckboxMachine = (item) => {
+    setMachineOut(prevState => {
+      if (prevState.includes(item)) {
+        // If item is already in the array, remove it (uncheck)
+        return prevState.filter(i => i !== item);
+      } else {
+        // If item is not in the array, add it (check)
+        return [...prevState, item];
+      }
+    });
+  };
+
+  const handleCheckboxWorker = (item) => {
+    setWorkerOut(prevState => {
       if (prevState.includes(item)) {
         // If item is already in the array, remove it (uncheck)
         return prevState.filter(i => i !== item);
@@ -47,22 +61,60 @@ const Attendance = () => {
       <h1 className="title">Attendance</h1>
 
       <div className="form-container">
-      machinr
-      <ul>
-        {machine.map((item, index) => (
-          <div key={index}>
-            <li>{JSON.stringify(item)}</li>
-            <input
-              type="checkbox"
-              onChange={() => handleCheckboxClick(item)}
-              name={item.value}
-              checked={checkedItems.includes(item)}
-            />
-          </div>
-        ))}
-      </ul>
+      
+      <h2>Machines</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Checkbox</th>
+          </tr>
+        </thead>
+        <tbody>
+          {machine.map((item, index) => (
+            <tr key={index}>
+              <td>{item.name}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  onChange={() => handleCheckboxMachine(item)}
+                  name={item.value}
+                  checked={checkedItems.includes(item)}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2>Workers</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Checkbox</th>
+          </tr>
+        </thead>
+        <tbody>
+          {worker.map((item, index) => (
+            <tr key={index}>
+              <td>{item.name}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  onChange={() => handleCheckboxWorker(item)}
+                  name={item.value}
+                  checked={checkedItems.includes(item)}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+     
         
         <button onClick={saveForm} className="button">Submit</button>
+        {/* saveForm fn should render back the dashboard */}
       </div>
 
       
