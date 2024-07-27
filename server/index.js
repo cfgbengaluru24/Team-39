@@ -350,9 +350,13 @@ app.post('/user/createmachinery',authenicate,restrict(['user']), async (req, res
     }
 })
 
-app.get('/user/resource',authenicate,restrict(['user']), async (req, res) => {
-    const orders = await orderModel.find({});
-    req.json(orders);
+app.get('/user/resource', async (req, res) => {
+    try {
+        const manufacturingData = await manufactureModel.find();
+        res.status(200).json(manufacturingData);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 })
 
 app.get('/user/attendance', async (req, res) => {
@@ -379,7 +383,7 @@ app.post('/user/attendance',authenicate,restrict(['user']), async (req, res) => 
     }
 })
 
-app.put('/user/manufacture-update', authenicate, restrict(['user']), async (req, res) => {
+app.put('/user/manufacture-update', async (req, res) => {
     try {
         const { manufactureId, progress } = req.body;
 

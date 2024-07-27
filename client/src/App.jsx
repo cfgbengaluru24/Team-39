@@ -19,6 +19,9 @@ import UserHome from './pages/user/UserHome';
 import Attendance from './components/users/Attendance';
 import Login from './pages/login/Login';
 import AdminLogin from './pages/login/AdminLogin';
+import Upload from './components/headq/Upload'
+import Resource from './components/users/Resource';
+
 
 function App() {
   return (
@@ -34,7 +37,7 @@ function App() {
       <Route path="create-user" element={<CreateUser />} />
       <Route path="take-order" element={<Order />} />
       <Route path="show-reports" element={<ShowReports />} />
-      {/* <Route path="collaboration" element={<Collaboration />} /> */}
+      <Route path="upload" element={<Upload />} />
       <Route path="upskilling" element={<Upskilling />} />
       {/* <Route index element={<div>Welcome to the Head Office Dashboard!</div>} /> */}
       <Route path="/user" element={<UserHome />}>
@@ -42,8 +45,9 @@ function App() {
         <Route path="create-worker" element={<CreateWorker />} />
         <Route path="site-details" element={<CreateSite />} />
         <Route path="create-machines" element={<CreateMachinery />} />
-        {/* <Route path="resource-management" element={<ResourceManagement />} /> */}
+        <Route path="resource-management" element={<Resource />} />
         <Route path="attendance" element={<Attendance />} />
+        
         {/* <Route index element={<div className="areas-responsible"><h3>Areas Responsible</h3><p>List of areas for which the ground level employee is responsible.</p></div>} /> */}
       </Route>
       <Route path="/login" element={<Login />} />

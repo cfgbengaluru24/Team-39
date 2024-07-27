@@ -1,13 +1,12 @@
-// src/pages/user/Navbar.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
   return (
-    <div className="user-navbar">
-      <h1 className="navbar-title">User Dashboard</h1>
-      <nav className="user-nav">
+    <div className="vertical-navbar">
+      <h1 className="navbar-title" style={{fontSize: '20px'}}>User Dashboard</h1>
+      <nav className="nav-links">
         <ul>
           <li><Link to="create-worker">Create Worker</Link></li>
           <li><Link to="site-details">Site Details</Link></li>
@@ -21,4 +20,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
