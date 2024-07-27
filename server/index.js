@@ -197,7 +197,7 @@ app.post('/user/login',async(req,res)=>{
 })
 
 
-app.post('/admin/createuser', async (req, res) => {
+app.post('/admin/createuser',authenicate,restrict(['admin']), async (req, res) => {
     try {
         let { name, place, dateofbirth, dateofjoining, phoneno, email, qualification, password } = req.body;
 
@@ -217,7 +217,7 @@ app.post('/admin/createuser', async (req, res) => {
         res.send(error.message);
     }
 })
-app.post('/admin/takeorder', async (req, res) => {
+app.post('/admin/takeorder',authenicate,restrict(['admin']), async (req, res) => {
     try {
         let { name, orderType, quantity, customization, tentative, cost } = req.body;
 
@@ -231,20 +231,21 @@ app.post('/admin/takeorder', async (req, res) => {
         res.send(error.message);
     }
 })
-// app.post('/admin/upskilling', async (req, res) => {
-//     try {
-//         let { videolink, pdflink } = req.body;
 
-//         let createdorder = await upskillingModel.create({
-//             videolink, pdflink
-//         });
-//         res.send("Upskilling Created Succesfully");
+app.post('/admin/upskilling',authenicate,restrict(['admin']), async (req, res) => {
+    try {
+        let { videolink, pdflink } = req.body;
+
+        let createdorder = await upskillingModel.create({
+            videolink, pdflink
+        });
+        res.send("Upskilling Created Succesfully");
 
 
-//     } catch (error) {
-//         res.send(error.message);
-//     }
-// })
+    } catch (error) {
+        res.send(error.message);
+    }
+})
 
 app.post('/user/createworker',authenicate,restrict(['user']), async (req, res) => {
     try {
@@ -258,13 +259,13 @@ app.post('/user/createworker',authenicate,restrict(['user']), async (req, res) =
         });
         res.send("worker Created Succesfully");
 
-        
+
 
     } catch (error) {
         res.send(error.message);
     }
 })
-app.post('/user/sitedetails', async (req, res) => {
+app.post('/user/sitedetails',authenicate,restrict(['user']), async (req, res) => {
     try {
         let { name, latitude, longitude, progress, status } = req.body;
 
@@ -278,7 +279,7 @@ app.post('/user/sitedetails', async (req, res) => {
         res.send(error.message);
     }
 })
-app.get('/user/sitedetails', async (req, res) => {
+app.get('/user/sitedetails',authenicate,restrict(['user']), async (req, res) => {
     try {
 
         let sites = await siteModel.find({});
@@ -289,7 +290,7 @@ app.get('/user/sitedetails', async (req, res) => {
         res.send(error.message);
     }
 })
-app.post('/user/createmachinery', async (req, res) => {
+app.post('/user/createmachinery',authenicate,restrict(['user']), async (req, res) => {
     try {
         let { name, quantity, type } = req.body;
 
@@ -309,7 +310,7 @@ app.post('/user/createmachinery', async (req, res) => {
         res.send(error.message);
     }
 })
-app.get('/user/resource', async (req, res) => {
+app.get('/user/resource',authenicate,restrict(['user']), async (req, res) => {
     const orders = await orderModel.find({});
     req.json(orders);
 })
@@ -318,7 +319,7 @@ app.get('/user/attendance', async (req, res) => {
     const workers = await workerModel.find({});
     res.json({ machines, workers });
 })
-app.post('/user/attendance', async (req, res) => {
+app.post('/user/attendance',authenicate,restrict(['user']), async (req, res) => {
     try {
         let { machineArray, workerArray } = req.body;
         let findattendance = await attendanceModel.find({ date });
