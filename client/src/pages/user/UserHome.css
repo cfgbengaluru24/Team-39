@@ -1,0 +1,28 @@
+/* src/pages/user/UserHome.css */
+.user-home {
+    display: flex;
+  }
+  
+  .user-content {
+    margin-left: 250px; /* Offset content by the width of the sidebar */
+    padding: 2rem;
+    width: calc(100% - 250px); /* Adjust width to account for sidebar */
+  }
+  
+  .areas-responsible {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #1c0aa7;
+    border-radius: 8px;
+  }
+  
+  .areas-responsible h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  
+  .areas-responsible p {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+  

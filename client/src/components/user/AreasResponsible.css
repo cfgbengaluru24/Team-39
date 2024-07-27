@@ -1,0 +1,16 @@
+/* src/pages/user/AreasResponsible.css */
+.areas-responsible {
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .areas-responsible h3 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .areas-responsible p {
+    margin: 0;
+  }
+  

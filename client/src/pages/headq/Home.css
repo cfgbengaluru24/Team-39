@@ -1,0 +1,22 @@
+/* src/pages/headq/Home.css */
+.home {
+    display: flex;
+    flex-direction: column;
+    background-color: #F0E5D8;
+  }
+  
+  .home-content {
+    margin-left: 250px; /* Offset content by the width of the sidebar */
+    padding: 2rem;
+    width: calc(100% - 250px);
+  }
+  
+  .dashboard {
+    margin-bottom: 0rem;
+  }
+  
+  .reports-section {
+    margin-top: 2rem;
+  }
+  
+  
