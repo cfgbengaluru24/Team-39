@@ -18,13 +18,14 @@ import UserHome from './pages/user/UserHome';
 // import ResourceManagement from './components/users/ResourceManagement';
 import Attendance from './components/users/Attendance';
 import Login from './pages/login/Login';
+import AdminLogin from './pages/login/AdminLogin';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="login">
-        <Route path="headq" element={<Login />} />
+        <Route path="headq" element={<AdminLogin />} />
         <Route path="user" element={<Login />} />
       </Route>
       <Route path="/about" element={<AboutUs />} />

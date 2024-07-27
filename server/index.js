@@ -132,6 +132,7 @@ app.post('/admin/login',async(req,res)=>{
         return res.status(200)
                 .json({
                     status:true,
+                    data:user,
                     message:"SuccessFully Loged In",
                     token,
                     role:"admin"
@@ -181,6 +182,7 @@ app.post('/user/login',async(req,res)=>{
         return res.status(200)
                 .json({
                     status:true,
+                    data:user,
                     message:"SuccessFully Loged In",
                     token,
                     role:"user"
@@ -221,6 +223,8 @@ app.post('/admin/createuser',authenicate,restrict(['admin']), async (req, res) =
 app.post('/admin/takeorder',authenicate,restrict(['admin']), async (req, res) => {
     try {
         let { name, orderType, quantity, customization, tentative, cost } = req.body;
+
+        console.log("shdf",req.body)
 
         let createdorder = new orderModel({
             name, tentative, orderType, quantity, customization, cost

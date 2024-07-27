@@ -6,42 +6,60 @@ import '../../components/createUser.css';
 
 const CreateUser = () => {
   const [form, setForm] = useState({
-    empname: "", place: "", DOB: "", joindate: "", phn: "", email: "", qualification: ""
+    name: "", place: "", dateofbirth: "", dateofjoining: "", phoneno: "", email: "", qualification: "",password:""
   });
 
-  const [formArray, setFormArray] = useState([]);
+
+  const token = localStorage.getItem('token')
+  console.log(token)
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const saveForm = async () => {
-    const currentDate = new Date().toLocaleString();
+    
+    
+
     if (form) {
-      const newForm = { ...form, id: uuidv4(), date: currentDate };
-      setFormArray([...formArray, newForm]);
+      console.log(form)
 
-      await fetch('http://localhost:3000/admin/createuser', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newForm)
-      });
+     try {
+      console.log("jdsfj")
 
-      setForm({
-        empname: "", place: "", DOB: "", joindate: "", phn: "", email: "", qualification: ""
-      });
+      const res =  await fetch('http://localhost:8000/admin/createuser', {
+         method: "POST",
+         headers: { "Content-Type": "application/json" ,
+          Authorization : `Bearer ${token}`
+         },
+         body: JSON.stringify(form)
+       });
+ 
+       
+       const result = await res.json();
+   
+       if(!res.ok){
+         throw new Error(result.message);
+       }
+ 
+       console.log('resf',result)
+ 
+       toast("Saved Successfully!", {
+         position: "top-right",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+         transition: Bounce
+       });
 
-      toast("Saved Successfully!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce
-      });
+     } catch (error) {
+      toast("Error in create!");
+      console.error("Error",error)
+     }
     } else {
       toast("Not Saved!");
     }
@@ -52,13 +70,14 @@ const CreateUser = () => {
       <h1 className="title">Create User</h1>
 
       <div className="form-container">
-        <input type="text" placeholder="Employee Name" value={form.empname} onChange={handleChange} name="empname" className="input" />
+        <input type="text" placeholder="Employee Name" value={form.name} onChange={handleChange} name="name" className="input" />
         <input type="text" placeholder="Location" value={form.place} onChange={handleChange} name="place" className="input" />
-        <input type="text" placeholder="DOB" value={form.DOB} onChange={handleChange} name="DOB" className="input" />
-        <input type="text" placeholder="Join Date" value={form.joindate} onChange={handleChange} name="joindate" className="input" />
-        <input type="text" placeholder="Phone" value={form.phn} onChange={handleChange} name="phn" className="input" />
-        <input type="text" placeholder="Email" value={form.email} onChange={handleChange} name="email" className="input" />
+        <input type="date" placeholder="dateofbirth" value={form.dateofbirth} onChange={handleChange} name="dateofbirth" className="input" />
+        <input type="date" placeholder="Join Date" value={form.dateofjoining} onChange={handleChange} name="dateofjoining" className="input" />
+        <input type="text" placeholder="Phone" value={form.phoneno} onChange={handleChange} name="phoneno" className="input" />
+        <input type="email" placeholder="Email" value={form.email} onChange={handleChange} name="email" className="input" />
         <input type="text" placeholder="Qualification" value={form.qualification} onChange={handleChange} name="qualification" className="input" />
+        <input type="text" placeholder="PAssword" value={form.password} onChange={handleChange} name="password" className="input" />
         <button onClick={saveForm} className="button">Submit</button>
       </div>
 
@@ -69,9 +88,9 @@ const CreateUser = () => {
             <table className="entries-table">
               <thead>
                 <tr>
-                  <th>Empname</th>
+                  <th>name</th>
                   <th>Place</th>
-                  <th>DOB</th>
+                  <th>dateofbirth</th>
                   <th>Phone</th>
                   <th>Email</th>
                   <th>Qualification</th>
@@ -80,10 +99,10 @@ const CreateUser = () => {
               <tbody>
                 {formArray.map((item, index) => (
                   <tr key={index}>
-                    <td>{item.empname}</td>
+                    <td>{item.name}</td>
                     <td>{item.place}</td>
-                    <td>{item.DOB}</td>
-                    <td>{item.phn}</td>
+                    <td>{item.dateofbirth}</td>
+                    <td>{item.phoneno}</td>
                     <td>{item.email}</td>
                     <td>{item.qualification}</td>
                   </tr>
