@@ -1,11 +1,23 @@
 import React from 'react'
-import '../../components/createUser.css'
+import BarChartBox from "../vizualization/BarChartbox";
+import AreaChartBox from "../vizualization/AreaChartBox";
+import {
+  barChartBoxRevenue,
+  barChartBoxVisit
+} from "./data";
 
 function ShowReports() {
-  return (
-    <div>
-      <h1>Hello</h1>
+  return (<>
+    <div className="box box9">
+      <AreaChartBox />
     </div>
+    <div className="box box9">
+      <BarChartBox {...barChartBoxRevenue} />
+    </div>
+    <div className="box box9">
+      <BarChartBox {...barChartBoxVisit} />
+    </div>
+  </>
   )
 }
 

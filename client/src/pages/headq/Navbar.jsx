@@ -13,7 +13,7 @@ function Navbar() {
         <li><Link to="/create-user">Create User</Link></li>
         <li><Link to="/take-order">Take Order</Link></li>
         <li><Link to="/show-reports">Show Reports</Link></li>
-        <li><Link to="/collaboration">Collaboration</Link></li>
+        <li><Link to="/upload">Upload</Link></li>
         <li><Link to="/upskilling">Upskilling</Link></li>
         <li><Link to="/logout">Logout</Link></li>
       </ul>

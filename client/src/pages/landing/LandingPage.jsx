@@ -5,6 +5,8 @@ import forestImage from '../../assets/images/shola.png';
 import './LandingPage.css';
 // import './home.css'; // Import the CSS file
 
+
+
 function LandingPage() {
   const cards = [
     {

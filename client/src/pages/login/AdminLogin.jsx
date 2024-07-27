@@ -14,7 +14,7 @@ function Login() {
     console.log('Password:', password);
     
     try {
-      const res = await fetch('http://localhost:8000/user/login',{
+      const res = await fetch('http://localhost:8000/admin/login',{
         method:'post',
         headers:{
           'Content-Type':'application/json'
@@ -36,7 +36,7 @@ function Login() {
 
       console.log("result data",result)
 
-      navigate('/user')
+      navigate('/headq')
 
     } catch (error) {
       
@@ -82,7 +82,7 @@ function Login() {
             Login
           </button>
           {error && 
-          <p className='text-red-500'>{error}</p>
+          <p style={"color:red"} >{error}</p>
           }
         </form>
       </div>

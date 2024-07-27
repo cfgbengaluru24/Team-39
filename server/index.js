@@ -132,6 +132,7 @@ app.post('/admin/login',async(req,res)=>{
         return res.status(200)
                 .json({
                     status:true,
+                    data:user,
                     message:"SuccessFully Loged In",
                     token,
                     role:"admin"
@@ -181,6 +182,7 @@ app.post('/user/login',async(req,res)=>{
         return res.status(200)
                 .json({
                     status:true,
+                    data:user,
                     message:"SuccessFully Loged In",
                     token,
                     role:"user"
@@ -221,6 +223,8 @@ app.post('/admin/createuser',authenicate,restrict(['admin']), async (req, res) =
 app.post('/admin/takeorder',authenicate,restrict(['admin']), async (req, res) => {
     try {
         let { name, orderType, quantity, customization, tentative, cost } = req.body;
+
+        console.log("shdf",req.body)
 
         let createdorder = new orderModel({
             name, tentative, orderType, quantity, customization, cost
@@ -346,9 +350,13 @@ app.post('/user/createmachinery',authenicate,restrict(['user']), async (req, res
     }
 })
 
-app.get('/user/resource',authenicate,restrict(['user']), async (req, res) => {
-    const orders = await orderModel.find({});
-    req.json(orders);
+app.get('/user/resource', async (req, res) => {
+    try {
+        const manufacturingData = await manufactureModel.find();
+        res.status(200).json(manufacturingData);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 })
 
 app.get('/user/attendance', async (req, res) => {
@@ -375,29 +383,58 @@ app.post('/user/attendance',authenicate,restrict(['user']), async (req, res) => 
     }
 })
 
-app.put('/user/manufacture-update', authenicate, restrict(['user']), async (req, res) => {
+app.put('/user/manufacture-update', async (req, res) => {
+    // try {
+    //     const { manufactureId, progress } = req.body;
+
+    //     console.log("dsjj",manufactureId,progress)
+    //     // Validate inputs
+    //     if (!mongoose.Types.ObjectId.isValid(manufactureId)) {
+    //         return res.status(400).json({ message: "Invalid manufacture ID" });
+    //     }
+    //     if (typeof progress !== 'number' || progress < 0 || progress > 100) {
+    //         return res.status(400).json({ message: "Invalid progress value" });
+    //     }
+
+    //     // Find the manufacture document by ID and update the progress field
+    //     const manufacture = await manufactureModel.findByIdAndUpdate(manufactureId, { progress }, { new: true });
+
+    //     if (!manufacture) {
+    //         return res.status(404).json({ message: "Manufacture document not found" });
+    //     }
+
+    //     res.status(200).json({ message: "Progress updated successfully", manufacture });
+    // } catch (error) {
+    //     res.status(500).json({ message: error.message });
+    // }
     try {
         const { manufactureId, progress } = req.body;
-
+    
         // Validate inputs
         if (!mongoose.Types.ObjectId.isValid(manufactureId)) {
-            return res.status(400).json({ message: "Invalid manufacture ID" });
+          return res.status(400).json({ message: "Invalid manufacture ID" });
         }
-        if (typeof progress !== 'number' || progress < 0 || progress > 100) {
-            return res.status(400).json({ message: "Invalid progress value" });
+    
+        const progressNumber = parseInt(progress, 10);
+        if (isNaN(progressNumber) || progressNumber < 0 || progressNumber > 100) {
+          return res.status(400).json({ message: "Invalid progress value" });
         }
-
+    
         // Find the manufacture document by ID and update the progress field
-        const manufacture = await manufactureModel.findByIdAndUpdate(manufactureId, { progress }, { new: true });
-
+        const manufacture = await manufactureModel.findByIdAndUpdate(
+          manufactureId, 
+          { progress: progressNumber }, 
+          { new: true }
+        );
+    
         if (!manufacture) {
-            return res.status(404).json({ message: "Manufacture document not found" });
+          return res.status(404).json({ message: "Manufacture document not found" });
         }
-
+    
         res.status(200).json({ message: "Progress updated successfully", manufacture });
-    } catch (error) {
+      } catch (error) {
         res.status(500).json({ message: error.message });
-    }
+      }
 });
 
 

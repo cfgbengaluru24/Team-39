@@ -3,48 +3,62 @@ import { v4 as uuidv4 } from 'uuid';
 import { toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../components/createUser.css'
+import { useNavigate } from 'react-router-dom';
 
 const Order = () => {
   const [form, setForm] = useState({
-    name: "", type: "", quantity: "", customization: "", time: ""
+    name: "", orderType: "", quantity: "", customization: "", tentative: "",location:""
   });
 
   const [formArray, setFormArray] = useState([]);
+
+  const navigate = useNavigate()
+
+  const token = localStorage.getItem('token')
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const saveForm = async () => {
-    const currentDate = new Date().toLocaleString();
-    if (form) {
-      const newForm = { ...form, id: uuidv4(), date: currentDate };
-      setFormArray([...formArray, newForm]);
+    
+   try {
+     if (form) {
+      
+ 
+ console.log(JSON.stringify(form))
 
-      await fetch('http://localhost:3000/', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newForm)
-      });
-
-      setForm({
-        name: "", type: "", quantity: "", customization: "", time: ""
-      });
-
-      toast("Saved Successfully!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce
-      });
-    } else {
-      toast("Not Saved!");
-    }
+       const res = await fetch("http://localhost:8000/admin/takeorder",{
+               method:'post',
+               headers:{
+                'Content-Type':'application/json',
+                Authorization : `Bearer ${token}`
+               } ,
+               body:JSON.stringify(form)
+            })
+ 
+       setForm({
+         name: "", orderType: "", quantity: "", customization: "", tentative: ""
+       });
+ 
+       toast("Saved Successfully!", {
+         position: "top-right",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+         transition: Bounce
+       });
+ 
+       navigate('/headq')
+      }
+   } catch (error) {
+    console.error(error)
+   }
+     
   };
 
   return (
@@ -53,10 +67,10 @@ const Order = () => {
 
       <div className="form-container">
         <input type="text" placeholder="Order Name" value={form.name} onChange={handleChange} name="name" className="input" />
-        <input type="text" placeholder="Type" value={form.type} onChange={handleChange} name="type" className="input" />
-        <input type="text" placeholder="quantity" value={form.quantity} onChange={handleChange} name="quantity" className="input" />
+        <input type="text" placeholder="orderType" value={form.orderType} onChange={handleChange} name="orderType" className="input" />
+        <input type="number" placeholder="quantity" value={form.quantity} onChange={handleChange} name="quantity" className="input" />
         <input type="text" placeholder="customization" value={form.customization} onChange={handleChange} name="customization" className="input" />
-        <input type="text" placeholder="time" value={form.time} onChange={handleChange} name="time" className="input" />
+        <input type="date" placeholder="tentative" value={form.tentative} onChange={handleChange} name="tentative" className="input" />
         <button onClick={saveForm} className="button">Submit</button>
       </div>
 
