@@ -10,7 +10,8 @@ function UserHome() {
       <Navbar />
       <div className="user-content">
         <div className="areas-responsible-section">
-          <AreasResponsible /> {/* Render the AreasResponsible component here */}
+          {/* <AreasResponsible /> Render the AreasResponsible component here */}
+          
         </div>
         <div className="additional-content">
           <Outlet /> {/* Render child routes here */}

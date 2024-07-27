@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../../components/createUser.css'
+import '../../components/createUser.css';
 
 const Attendance = () => {
   

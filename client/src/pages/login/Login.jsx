@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Import the CSS file
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Username:', username);
     console.log('Password:', password);
+    const path = location.pathname.includes('headq') ? '/headq' : '/user';
+    navigate(path);
   };
 
   return (

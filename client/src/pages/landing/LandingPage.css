@@ -1,0 +1,70 @@
+/* src/pages/landing/LandingPage.css */
+.landing-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .landing-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 100px;
+    height: auto;
+  }
+  
+  .landing-navbar {
+    background-color: #333;
+    padding: 10px;
+  }
+  
+  .landing-navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+  }
+  
+  .landing-navbar li {
+    display: inline;
+  }
+  
+  .landing-navbar a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .landing-navbar a:hover {
+    text-decoration: underline;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h2 {
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    margin-bottom: 20px;
+  }
+  
