@@ -1,6 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
+
+
+
+const handleLogout = () => {
+  localStorage.clear();
+  window.location.href = '/'; // Redirect to login page
+};
 
 function Navbar() {
   return (
@@ -15,7 +22,7 @@ function Navbar() {
         <li><Link to="/show-reports">Show Reports</Link></li>
         <li><Link to="/upload">Upload</Link></li>
         <li><Link to="/upskilling">Upskilling</Link></li>
-        <li><Link to="/logout">Logout</Link></li>
+        <li onClick={handleLogout} style={{cursor:'pointer',textAlign:'center'}}>Logout</li>
       </ul>
     </nav>
   );

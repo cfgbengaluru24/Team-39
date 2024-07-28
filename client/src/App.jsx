@@ -21,6 +21,7 @@ import Login from './pages/login/Login';
 import AdminLogin from './pages/login/AdminLogin';
 import Upload from './components/headq/Upload'
 import Resource from './components/users/Resource';
+import Collaborate from './pages/collaborate/Collaborate';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
       </Route>
       <Route path="/about" element={<AboutUs />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/collaborate" element={<Collaborate/>} />
       <Route path="headq" element={<Home />} />
       <Route path="create-user" element={<CreateUser />} />
       <Route path="take-order" element={<Order />} />

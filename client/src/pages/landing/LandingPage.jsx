@@ -8,6 +8,9 @@ import './LandingPage.css';
 
 
 function LandingPage() {
+
+  const role  =  localStorage.getItem("role")
+
   const cards = [
     {
       title: "Card Title 1",
@@ -44,8 +47,14 @@ function LandingPage() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About Us</Link></li>
           <li><Link to="/contact">Contact Us</Link></li>
-          <li><Link to="/login/headq">Head Office Login</Link></li>
-          <li><Link to="/login/user">Ground Level Employee Login</Link></li>
+          <li><Link to="/collaborate">Collaborate</Link></li>
+          
+          
+          {role && (role === "admin" ? <li><Link to="/headq">Dashboad</Link></li>
+           : <li><Link to="/user/create-worker">Dashboad</Link></li>) }
+
+          {!role && <div><li style={{margin:'10px'}}><Link to="/login/headq">Admin Login</Link></li>
+            <li><Link to="/login/user">Employee Login</Link></li></div> }
         </ul>
       </nav>
       <div className='fullscreen-image'>

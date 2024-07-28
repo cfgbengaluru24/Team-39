@@ -52,7 +52,7 @@ const Upskilling = () => {
       <h1 className="title">Enter Education Videos</h1>
 
       <div className="form-container">
-        <input type="text" placeholder="Video Name" value={form.videos} onChange={handleChange} name="videos" className="input" />
+        <input type="text" placeholder="Video Link" value={form.videos} onChange={handleChange} name="videos" className="input" />
         <input type="text" placeholder="pdf" value={form.pdf} onChange={handleChange} name="pdf" className="input" />
         
         <button onClick={saveForm} className="button">Submit</button>

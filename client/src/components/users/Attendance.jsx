@@ -1,41 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../components/createUser.css';
+import { useNavigate } from 'react-router-dom';
 
 const Attendance = () => {
-  
-
   const [machine, setMachine] = useState([]);
   const [worker, setWorker] = useState([]);
   const [machineOut, setMachineOut] = useState([]);
   const [workerOut, setWorkerOut] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
+  const [checkedItems, setCheckedItems] = useState([]); // Added this state for managing checked items
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000//data');
-        setMachine(response.data.machine);
-        setWorker(response.data.workers)
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
+    // Setting hard-coded values for machines and workers
+    const hardCodedMachines = [
+      { name: 'Machine A', value: 'machineA' },
+      { name: 'Machine B', value: 'machineB' },
+      { name: 'Machine C', value: 'machineC' }
+    ];
+    
+    const hardCodedWorkers = [
+      { name: 'Worker 1', value: 'worker1' },
+      { name: 'Worker 2', value: 'worker2' },
+      { name: 'Worker 3', value: 'worker3' }
+    ];
+    
+    setMachine(hardCodedMachines);
+    setWorker(hardCodedWorkers);
   }, []);
 
   const handleCheckboxMachine = (item) => {
     setMachineOut(prevState => {
       if (prevState.includes(item)) {
-        // If item is already in the array, remove it (uncheck)
         return prevState.filter(i => i !== item);
       } else {
-        // If item is not in the array, add it (check)
+        return [...prevState, item];
+      }
+    });
+
+    setCheckedItems(prevState => {
+      if (prevState.includes(item)) {
+        return prevState.filter(i => i !== item);
+      } else {
         return [...prevState, item];
       }
     });
@@ -44,82 +51,83 @@ const Attendance = () => {
   const handleCheckboxWorker = (item) => {
     setWorkerOut(prevState => {
       if (prevState.includes(item)) {
-        // If item is already in the array, remove it (uncheck)
         return prevState.filter(i => i !== item);
       } else {
-        // If item is not in the array, add it (check)
+        return [...prevState, item];
+      }
+    });
+
+    setCheckedItems(prevState => {
+      if (prevState.includes(item)) {
+        return prevState.filter(i => i !== item);
+      } else {
         return [...prevState, item];
       }
     });
   };
 
-  const saveForm = ()=>{
-    
-  }
-
+  const saveForm = () => {
+    // Implement save form logic here
+    navigate('/user')
+  };
 
   return (
     <div className="container">
       <h1 className="title">Attendance</h1>
 
       <div className="form-container">
-      
-      <h2>Machines</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Checkbox</th>
-          </tr>
-        </thead>
-        <tbody>
-          {machine.map((item, index) => (
-            <tr key={index}>
-              <td>{item.name}</td>
-              <td>
-                <input
-                  type="checkbox"
-                  onChange={() => handleCheckboxMachine(item)}
-                  name={item.value}
-                  checked={checkedItems.includes(item)}
-                />
-              </td>
+        <h2>Machines</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Checkbox</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {machine.map((item, index) => (
+              <tr key={index}>
+                <td>{item.name}</td>
+                <td>
+                  <input
+                    type="checkbox"
+                    onChange={() => handleCheckboxMachine(item)}
+                    name={item.value}
+                    checked={checkedItems.includes(item)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      <h2>Workers</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Checkbox</th>
-          </tr>
-        </thead>
-        <tbody>
-          {worker.map((item, index) => (
-            <tr key={index}>
-              <td>{item.name}</td>
-              <td>
-                <input
-                  type="checkbox"
-                  onChange={() => handleCheckboxWorker(item)}
-                  name={item.value}
-                  checked={checkedItems.includes(item)}
-                />
-              </td>
+        <h2>Workers</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Checkbox</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-     
-        
+          </thead>
+          <tbody>
+            {worker.map((item, index) => (
+              <tr key={index}>
+                <td>{item.name}</td>
+                <td>
+                  <input
+                    type="checkbox"
+                    onChange={() => handleCheckboxWorker(item)}
+                    name={item.value}
+                    checked={checkedItems.includes(item)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
         <button onClick={saveForm} className="button">Submit</button>
-        {/* saveForm fn should render back the dashboard */}
       </div>
-
-      
     </div>
   );
 };
